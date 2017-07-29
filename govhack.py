@@ -22,7 +22,6 @@ f=[Thing(x[0],x[1],x[2],"WATER FOUNTAIN",float(x[5]),float(x[6])) for x in f[1:]
 b=[Thing(x[0],x[1],x[2],x[3],float(x[5]),float(x[6])) for x in b[1:]]
 t=[Thing(x[0],x[1],x[2],x[3],float(x[5]),float(x[6])) for x in t[1:]]
 
-burbs=[x[4] for x in csv.reader(open("ACT_Division_Boundaries_data.csv"))][1:]
 locs={x.location for x in f+b+t}-{""}
 dists={x.district for x in f+b+t}
 
@@ -74,9 +73,11 @@ else:
   n=near(l,w)
   if 0<len(n)<5:
     n=near5(str((n[0].lat,n[0].long)),w)
- 
+print("\n"*3)
 if n:
   print("Aight found some")
   for i in n: print(i)
 else:
   print("Fugg there's no "+w.lower()+" near you. Bad luck bro.")
+print("\n"*3+asc[{"TOILET":4,"LOO":4,"WATER":5,"DRINK":5,"FOUNTAIN":5,"WATER FOUNTAIN":5,"BBQ":6,"BARBEQUE":6}[w]])
+
