@@ -1,4 +1,4 @@
-import csv,math
+import csv,math,sys
 
 class Thing:
   def __init__(self, i, d, l, t, c1, c2):
@@ -49,35 +49,45 @@ def dist(x1,y1,x2,y2):
   fm=math.radians(x1+x2)/2
   return 6371000*math.hypot(dl*math.cos(fm),df)
 
-print("\n"*5)
-print(asc[0])
-print("\n"*3)
-l=input(asc[1]+"\n").upper()
-while l not in locs|dists and not iscoord(l):
-  print("Huh never heard of it. Try a REAL suburb or some proper coords.")
-  l=input("So, where you at fam? ").upper()
-w=input("\n"*2+asc[2]+"\n").upper()
+while True:
+  print("\n"*5)
+  print(asc[0])
+  print("\n"*3)
+  l=input(asc[1]+"\n").upper()
+  while l not in locs|dists and not iscoord(l):
+    print("Huh never heard of it. Try a REAL suburb or some proper coords.")
+    l=input("So, where you at fam? ").upper()
+  w=input("\n"*2+asc[2]+"\n").upper()
 
-if "MEME" in w:
-  input("I warned you")
-  input("This is my only one")
-  print(asc[3])
-  w=input("Aight so whachu really after? ").upper()
-while w not in d:
-  print("Da fuks dat? We only do bbq, toilet n water.")
-  w=input("Aight so whachu really after? ").upper()
+  if "MEME" in w:
+    input("I warned you")
+    input("This is my only one")
+    try:
+      print(asc[3])
+    except:
+      print("I lied I don't have any")
+    w=input("Aight so whachu really after? ").upper()
+  while w not in d:
+    print("Huh whats dat? We only do bbq, toilet n water.")
+    w=input("Aight so whachu really after? ").upper()
 
-if iscoord(l):
-  n=near5(l,w)
-else:
-  n=near(l,w)
-  if 0<len(n)<5:
-    n=near5(str((n[0].lat,n[0].long)),w)
-print("\n"*3)
-if n:
-  print("Aight found some")
-  for i in n: print(i)
-else:
-  print("Fugg there's no "+w.lower()+" near you. Bad luck bro.")
-print("\n"*3+asc[{"TOILET":4,"LOO":4,"WATER":5,"DRINK":5,"FOUNTAIN":5,"WATER FOUNTAIN":5,"BBQ":6,"BARBEQUE":6}[w]])
-
+  if iscoord(l):
+    n=near5(l,w)
+  else:
+    n=near(l,w)
+    if 0<len(n)<5:
+      n=near5(str((n[0].lat,n[0].long)),w)
+  print("\n"*3)
+  if n:
+    print(asc[{"TOILET":4,"LOO":4,"WATER":5,"DRINK":5,"FOUNTAIN":5,"WATER FOUNTAIN":5,"BBQ":6,"BARBEQUE":6}[w]]+"\n"*3)
+    print("Aight found some:")
+    for i in n: print(i)
+  else:
+    print("Uh oh there's no "+w.lower()+" near you. Bad luck bro.")
+  print("\n"*2)
+  q=input("You good now? Or you want some more? (Y/N) ").upper()
+  while q not in ("YESNO") or q[0] not in "YN":
+    q=input("You good now? Or you want some more? (Y/N) ").upper()
+  if q[0]=="N":
+    break
+  print("\n"*3)
